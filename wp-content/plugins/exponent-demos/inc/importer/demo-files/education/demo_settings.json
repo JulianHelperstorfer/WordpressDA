@@ -1,0 +1,10 @@
+{
+	"home_page_title": "Home - Education",
+	"blog_page_title": "Blog - Education",
+	"content_plugins": {
+		"WPForms": "WP Forms",
+		"be-grid": "BE Grid",
+		"tatsu": "Tatsu"
+	},
+	"nav_menus":{"13":"Main Menu - Education","14":"Top Header Menu - Education","15":"Courses - Education","16":"Legal - Education"}
+}
