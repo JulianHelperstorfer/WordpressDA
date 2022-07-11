@@ -11,3 +11,8 @@ Tags: two-columns, three-columns, left-sidebar, right-sidebar, custom-menu, feat
 Text Domain: exponent
 */
 
+@font-face { 
+font-family: Visvang; 
+src: local ('E:\Wordpress\apps\wordpress\htdocs\wp-content\themes\exponent\fonts\custom-fonts\fishy_fish\Visvang.ttf'); 
+font-weight: normal; 
+}
