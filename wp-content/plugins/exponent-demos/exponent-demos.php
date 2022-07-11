@@ -5,7 +5,7 @@
  * Plugin URI: http://brandexponents.com
  * Author: Brand Exponents
  * Author URI: http://brandexponents.com
- * Version: 1.3.1
+ * Version: 1.3.2
  * License: GPL2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: exponent-demos
@@ -27,7 +27,7 @@ function exp_demos_init() {
     $ExponentCore               = new ExponentDemosCore();
     $ExponentCore['path']       = realpath( plugin_dir_path( __FILE__ ) ). DIRECTORY_SEPARATOR;
     $ExponentCore['url']        = plugin_dir_url( __FILE__ );
-    $ExponentCore['version']    = '1.3.1';
+    $ExponentCore['version']    = '1.3.2';
     $ExponentCore['ExponentDemoImporter'] = new ExponentDemoImporter();
     apply_filters( 'exponent_demos_config', $ExponentCore );
     $ExponentCore->run();

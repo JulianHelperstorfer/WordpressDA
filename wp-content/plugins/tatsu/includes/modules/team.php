@@ -593,7 +593,7 @@ function tatsu_register_team() {
 					'title_color'	=> array('id' => 'palette:1', 'color' => tatsu_get_color('tatsu_accent_twin_color')),
 					'designation' => 'Designer',
 					'designation_color'	=> array('id' => 'palette:1', 'color' => tatsu_get_color('tatsu_accent_twin_color')),
-					'image' => 'http://placehold.it/400x400',
+					'image' => 'http://via.placeholder.com/400x400',
 					'facebook' => '#',
 					'twitter' => '#',
 					'linkedin' => '#',

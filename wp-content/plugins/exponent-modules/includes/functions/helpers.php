@@ -128,7 +128,7 @@ if ( ! function_exists( 'be_themes_mailchimp_subscription' ) ) {
 	    ));
 	    if( !isset($result['status']) ) {
 	    	$result['status'] = 'success';
-	    	$result['data'] = __('Thank you, you have been added to our mailing list.','exponent-modules');
+	    	$result['data'] = !empty($_POST['success_text'])?sanitize_text_field($_POST['success_text']):__('Thank you, you have been added to our mailing list.','exponent-modules');
 	    } else {
 	    	$result['data'] =  $result['error'];
 	    }

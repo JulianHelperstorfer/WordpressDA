@@ -246,6 +246,10 @@ body:not(.tatsu-frame) #tatsu-header-container .tatsu-module:last-child {
     max-width: 100%;
 }
 
+.tatsu-header-logo .logo-img[src*="svg"] {
+    width: 100%;
+}
+
 /* Main Menu Links */
 
 .tatsu-menu ul li{

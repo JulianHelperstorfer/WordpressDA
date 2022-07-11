@@ -22,6 +22,9 @@ if (!function_exists('exp_newsletter')) {
             'border_style'  => '',
             'border_radius'         => '',
             'hover_border_color'=> '',
+			'success_text' => '',
+            'success_text_color'=>'',
+            'success_text_bgcolor'=>'',
             'key' => be_uniqid_base36(true),
         ), $atts, $tag);
         
@@ -63,7 +66,13 @@ if (!function_exists('exp_newsletter')) {
         $classes = implode( ' ', $classes );
         $form_class = implode( ' ', $form_class );
         $output = '';
-        
+        $success_style ="";
+        if(!empty($success_text_color)||!empty($success_text_bgcolor)){
+            $success_style = "<style>.subscribe_status.tatsu-success{";
+            $success_style .=empty($success_text_color)?'':"color:$success_text_color;";
+            $success_style .=empty($success_text_bgcolor)?'':"background-color:$success_text_bgcolor;";
+            $success_style .="</style>";
+        }
         ob_start();
 ?>
             <div <?php echo $css_id; ?> class = "<?php echo $classes; ?>" <?php echo $data_attrs; ?> >
@@ -71,6 +80,7 @@ if (!function_exists('exp_newsletter')) {
                 <form method = "POST" class = "<?php echo $form_class; ?>">
                     <input type="hidden" name="api_key" value="<?php echo $api_key; ?>" />
                     <input type="hidden" name="list_id" value="<?php echo $id; ?>" />
+                    <input type="hidden" name="success_text" value="<?php echo esc_html($success_text); ?>">
                     <div class = "exp-mc">
                         <input type="text" name="email" class = "exp-mc-email" placeholder="<?php echo __('Email','exponent-modules'); ?>" />
                         <div class = "exp-mc-submit-wrap">
@@ -81,7 +91,8 @@ if (!function_exists('exp_newsletter')) {
                             </div>
                         </div>
                     </div>
-                    <div class="subscribe_status tatsu-notification">
+                    <?php echo $success_style; ?>
+                    <div class="subscribe_status tatsu-notification" >
                     </div>
                 </form>
             </div>
@@ -170,6 +181,9 @@ if( !function_exists( 'exp_register_newsletter' ) ) {
                                 'api_key',
                                 'id',
                                 'button_text',
+                                'success_text',
+                                'success_text_color',
+                                'success_text_bgcolor',
                             )
                         ),
                         array (
@@ -311,6 +325,27 @@ if( !function_exists( 'exp_register_newsletter' ) ) {
                     'label' => __( 'Button Text', 'exponent-modules' ),
                     'default' => __( 'Subscribe', 'exponent-modules' ),
                     'tooltip' => ''
+                ),
+                array(
+                    'att_name' => 'success_text',
+                    'type' => 'text',
+                    'label' => __( 'Message After Success', 'exponent-modules' ),
+                    'default' => __('Thank you, you have been added to our mailing list.','exponent-modules'),
+                    'tooltip' => '',
+                ),
+                array (
+                    'att_name' => 'success_text_color',
+                    'type' => 'color',
+                    'label' => __( 'Success Message color', 'exponent-modules' ),
+                    'default' => '',
+                    'tooltip' => '',
+                ),
+                array (
+                    'att_name' => 'success_text_bgcolor',
+                    'type' => 'color',
+                    'label' => __( 'Success Message background color', 'exponent-modules' ),
+                    'default' => '',
+                    'tooltip' => '',
                 ),
                 array (
                     'att_name' => 'input_text_color',

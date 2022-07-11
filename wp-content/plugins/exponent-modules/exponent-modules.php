@@ -4,7 +4,7 @@
  * Plugin Name:       Exponent Modules
  * Plugin URI:        http://exponentwptheme.com
  * Description:       Add Ons for Tatsu Page Builder and Exponent theme
- * Version:           2.1.4
+ * Version:           2.1.5
  * Author:            Brand Exponents
  * Author URI:        http://brandexponents.com
  * License:           GPL-2.0+
@@ -30,7 +30,7 @@ if( !defined( 'EXPONENT_MODULES_PLUGIN_DIR' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'EXPONENT_MODULES_VERSION', '2.1.4' );
+define( 'EXPONENT_MODULES_VERSION', '2.1.5' );
 
 /**
  * The code that runs during plugin activation.

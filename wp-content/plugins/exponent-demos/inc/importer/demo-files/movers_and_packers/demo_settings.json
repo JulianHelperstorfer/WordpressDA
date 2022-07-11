@@ -2,7 +2,7 @@
 	"home_page_title": "Home – Movers and Packers",
 	"blog_page_title": "",
 	"content_plugins": {
-		"WPCF7": "Contact Form 7",
+		"WPForms": "WP Forms",
 		"tatsu" : "Tatsu"
 	},
 	"nav_menus":{"2":"Exponent - Movers & Packers Menu","3":"Exponent- Our Services","4":"Quick Link"}

@@ -559,7 +559,9 @@
 		if ( watchedElements.length > 1 ) {
 			rwmb.$document
 				.off( 'change keyup', watchedElements )
-				.on( 'change keyup', watchedElements, () => runConditionalLogic( getScope( $( this ) ) ) );
+				.on( 'change keyup', watchedElements, function() {
+					runConditionalLogic( getScope( $( this ) ) );
+				} );
 		}
 
 		// Featured image replaces HTML, thus the event listening above doesn't work.
@@ -567,9 +569,6 @@
 		if ( -1 !== watchedElements.indexOf( '_thumbnail_id' ) ) {
 			$( '#postimagediv' ).on( 'DOMSubtreeModified', runConditionalLogic );
 		}
-
-		// For groups.
-		rwmb.$document.on( 'clone_completed', ( event, $group ) => runConditionalLogic( $group ) );
 	}
 
 	function init() {
@@ -581,7 +580,13 @@
 			watch();
 			runConditionalLogic( $( e.target ) );
 		} );
+
+		// For groups.
+		rwmb.$document.on( 'clone_completed', ( event, $group ) => runConditionalLogic( $group ) );
 	}
+
+	// Export the runConditionalLogic to global scope to use in other scripts.
+	rwmb.runConditionalLogic = runConditionalLogic;
 
 	// Run when page finishes loading to improve performance.
 	// https://github.com/wpmetabox/meta-box/issues/1195.

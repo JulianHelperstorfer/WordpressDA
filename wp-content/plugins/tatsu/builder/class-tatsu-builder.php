@@ -224,9 +224,21 @@ class Tatsu_Builder {
         wp_enqueue_media();
 
 		wp_enqueue_script( 'tatsu' );	
-		if(be_theme_name('spyro')){
+		//Builder control js for spyro form clean area and preview of tatsu modules on hover
 		wp_enqueue_script( 'tatsu-builder-control', plugins_url( 'admin/js/tatsu-builder-control.js', dirname(__FILE__) ),array('jquery'), $this->version,true);
-		}
+		wp_localize_script(
+			'tatsu-builder-control',
+			'tatsuBuilderConfig',
+			array(
+				'ajaxurl' => esc_url( admin_url( 'admin-ajax.php' ) ),
+				'pro_icon'=> TATSU_PLUGIN_URL . '/builder/svg/pro_icon.svg',
+				'module_preview'=>tatsu_module_preview_options($module_options),
+				'be_theme_name'=>be_theme_name(),
+				'is_tatsu_authorized'=>is_tatsu_authorized(),
+				'is_tatsu_standalone'=>is_tatsu_standalone()
+			)
+		);
+		
 		wp_enqueue_script( 'webfont-loader', '//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js',array(),$this->version );
 		wp_localize_script(
 			'tatsu',
@@ -259,6 +271,8 @@ class Tatsu_Builder {
                 'custom_css'  => get_post_meta( $this->post_id, 'tatsu_custom_css', true ),
                 'custom_js'  => get_post_meta( $this->post_id, 'tatsu_custom_js', true ),
                 'mode'  => $this->builder_mode,
+				'default_category' => 'basic',
+				'categories' => tatsu_module_categories(),
 			)
 		);
 		wp_localize_script (

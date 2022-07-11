@@ -707,7 +707,11 @@ if ( class_exists( 'WP_Importer' ) ) {
 								}
 							}
 						}
-
+						/****Prevent download image except feature image : start *****/
+						if(empty($post_parent)){
+							continue;
+						}
+						/****Prevent download image except feature image : end *****/
 						$comment_post_ID = $post_id = $this->process_attachment( $postdata, $remote_url );
 					} else {
 						$comment_post_ID = $post_id = wp_insert_post( $postdata, true );

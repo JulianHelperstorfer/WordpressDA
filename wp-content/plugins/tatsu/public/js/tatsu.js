@@ -409,13 +409,14 @@
                             curPlayer = null,
                             id = !isNaN( Number( curVideo.attr( 'data-video-id' ) ) ) ? Number( curVideo.attr( 'data-video-id' ) ) : null,
                             autoplay = null != curVideo.attr( 'data-autoplay' ) ? parseInt(curVideo.attr( 'data-autoplay' )) : false,
-                            loopVideo = null != curVideo.attr( 'data-loop' ) ? parseInt(curVideo.attr( 'data-loop' )) : false;
+                            loopVideo = null != curVideo.attr( 'data-loop' ) ? parseInt(curVideo.attr( 'data-loop' )) : false,
+                            muted = null != curVideo.attr( 'data-muted' ) ? parseInt(curVideo.attr( 'data-muted' )) : false;
                         if( null != id ) {
                             var curPlayer = new Vimeo.Player( this, {
                                 id : id,
                                 autoplay : autoplay ? true : false,
                                 loop : loopVideo ? true : false,
-                                muted : autoplay ? true : false,
+                                muted : muted ? true : false,
                                 width : curVideo.width(),
                                 height : Math.ceil(curVideo.width()/1.7777),    
                             });
@@ -1589,7 +1590,13 @@
                     
                 var tatsu_form_status =  $this.parent('.tatsu-forms-save').find('.subscribe_status');
                 var tatsu_loader = $this.parent('.tatsu-forms-save').find(".exp-subscribe-loader");
-                if(typeof formid === 'undefined' || formid == null || formid == ''){
+                var spyro_required_checkbox = $this.find('.spyro-required-checkbox');
+                if(spyro_required_checkbox.length && spyro_required_checkbox.find('input[type="checkbox"]:checked').length<=0){
+                    spyro_required_checkbox.find('.error').text('Required field').show().fadeOut(9999);
+                    tatsu_form_status.removeClass("tatsu-success").addClass("tatsu-error");
+                    tatsu_form_status.html("Required field missing");
+                    return false;
+                }else if(typeof formid === 'undefined' || formid == null || formid == ''){
                     tatsu_form_status.removeClass("tatsu-success").addClass("tatsu-error");
                     tatsu_form_status.html("Invalid Form").slideDown();
                     console.log('Form id missing');
@@ -1610,6 +1617,24 @@
                         tatsu_formData.append('action', 'tatsu_forms_save');
                         tatsu_formData.append('form_id', form_id);
                         tatsu_formData.append('action_after_submit', action_after_submit);
+                        if(action_after_submit=='mailchimp'){
+                            var email_address = $this.find('input[data-map_field="email_address"]');
+                            if(email_address.length){
+                            tatsu_formData.append('email_address',email_address.val());
+                            }
+                            var fname = $this.find('input[data-map_field="FNAME"]');
+                            if(fname.length){
+                            tatsu_formData.append('fname',fname.val());
+                            }
+                            var lname = $this.find('input[data-map_field="LNAME"]');
+                            if(lname.length){
+                            tatsu_formData.append('lname',lname.val());
+                            }
+                            var phone = $this.find('input[data-map_field="PHONE"]');
+                            if(phone.length){
+                            tatsu_formData.append('phone',phone.val());
+                            }
+                        }
                         if(tatsuFrontendConfig.recaptcha_type=='v3' && typeof is_recaptcha !=='undefined' && is_recaptcha == '1'){
                             grecaptcha.ready(function() {
                                 grecaptcha.execute(tatsuFrontendConfig.recaptcha_site_key, {action: 'submit'}).then(function(token) {

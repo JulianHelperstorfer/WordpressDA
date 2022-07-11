@@ -8,6 +8,7 @@ if (!function_exists('tatsu_image')) {
             'enable_margin'     => 'null',
             'margin'            => '0 0 0 0',
             'alignment'         => '',
+            'border_style'      => 'solid',
             'border_width'      => 0,
             'border_color'      => 'transparent',
             'image'             => '',
@@ -99,7 +100,8 @@ if (!function_exists('tatsu_image')) {
                     //image title attribute
                     $image_atts[] = sprintf( 'title = "%s"', get_the_title($id) );
                     $padding = 'padding-bottom : '.( ( $image_height / $image_width ) * 100 ).'%;';
-                    if( isset( $adaptive_image ) && $adaptive_image == 1 ) {
+                    $ext = strrchr($image_src,".");
+                    if( isset( $adaptive_image ) && $adaptive_image == 1 && $ext != '.gif' ) {
                         $img_srcset = wp_get_attachment_image_srcset( $id, $size );
                         $sizes = wp_calculate_image_sizes( $size, null, null, $id );
                         if( !empty( $img_srcset ) ) {
@@ -184,7 +186,6 @@ if (!function_exists('tatsu_image')) {
 			if(strpos($final_image_atrr,'src =')===false || (strpos($final_image_atrr,'data-src =')!==false && substr_count($final_image_atrr,'src =')<2)){
 				$final_image_atrr .=' src ="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" '; 	
 			}
-
             $output .= '<img class = "tatsu-gradient-border" ' . $final_image_atrr . ' />';
             if( '' != $link ) {
                 $output .= '</a>';
@@ -354,6 +355,7 @@ function tatsu_register_image()
 										'type' => 'panel',
 										'title' => esc_html__('Border', 'tatsu'),
 										'group'		=> array(
+											'border_style',
 											'border_width',
 											'border_color',
 											'border_radius',
@@ -412,6 +414,27 @@ function tatsu_register_image()
 					'.tatsu-{UUID} .tatsu-single-image-inner' => array(
 						'property' => 'border-width',
 						'append' => 'px',
+					),
+				),
+			),
+			array(
+				'att_name' => 'border_style',
+				'type' => 'select',
+				'label' => esc_html__( 'Border Style', 'tatsu' ),
+				'options' => array(
+					'none' => 'None',
+					'solid' => 'Solid',
+					'dashed' => 'Dashed',
+					'double' => 'Double',
+					'dotted' => 'Dotted',
+				),
+				'default' => 'solid',
+				'tooltip' => '',
+				'css' => true,
+				'responsive' => true,
+				'selectors' => array(
+					'.tatsu-{UUID} .tatsu-single-image-inner' => array(
+						'property' => 'border-style',        
 					),
 				),
 			),

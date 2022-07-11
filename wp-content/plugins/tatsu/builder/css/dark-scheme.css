@@ -4825,7 +4825,30 @@ a.ant-btn-sm {
 .be-pb-module-list-area {
   display: flex;
   flex-wrap: wrap;
+}
+.be-pb-module-list-section.list-hidden .be-pb-module-list-area.hidden {
+  display: none;
+}
+.be-pb-module-list-section.list-visible .tatsu-panel-icon-vert {
+  display: none;
+}
+.be-pb-module-section-container {
   padding-bottom: 200px;
+}
+.be-pb-module-list-section .be-pb-module-categories {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1;
+  margin: 0;
+  padding: 13px 20px;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-bottom: 1px solid #3E4041;
+  cursor: pointer;
+}
+.be-pb-module-list-section .be-pb-module-icon {
+  float: right;
+  margin-top: 1px;
 }
 .be-pb-modulelist-card {
   width: 50%;

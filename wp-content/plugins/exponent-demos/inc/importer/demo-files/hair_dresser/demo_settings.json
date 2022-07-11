@@ -5,7 +5,7 @@
 		"revslider": "slider-1.zip"
 	},
 	"content_plugins": {
-		"WPCF7": "Contact Form 7",
+		"WPForms": "WP Forms",
 		"be-grid": "BE Grid",
 		"tatsu":"Tatsu",
 		"revslider": "Slider Revolution"

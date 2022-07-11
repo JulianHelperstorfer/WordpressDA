@@ -4,10 +4,10 @@ class MB_Conditional_Logic {
 	private $outside_conditions = null;
 
 	public function __construct() {
-		add_action( 'rwmb_before', array( $this, 'insert_meta_box_conditions' ) );
-		add_action( 'rwmb_before', array( $this, 'insert_toggle_type' ) );
-		add_filter( 'rwmb_wrapper_html', array( $this, 'insert_field_conditions' ), 10, 2 );
-		add_action( 'rwmb_after', array( $this, 'enqueue_in_footer' ) );
+		add_action( 'rwmb_before', [ $this, 'insert_meta_box_conditions' ] );
+		add_action( 'rwmb_before', [ $this, 'insert_toggle_type' ] );
+		add_filter( 'rwmb_wrapper_html', [ $this, 'insert_field_conditions' ], 10, 2 );
+		add_action( 'rwmb_after', [ $this, 'enqueue_in_footer' ] );
 
 		add_action( 'rwmb_enqueue_scripts', [ $this, 'enqueue_in_customizer_gutenberg' ] );
 	}
@@ -73,7 +73,7 @@ class MB_Conditional_Logic {
 
 	public function enqueue() {
 		list( , $url ) = RWMB_Loader::get_path( __DIR__ );
-		wp_enqueue_script( 'mb-conditional-logic', $url . 'conditional-logic.js', ['underscore', 'rwmb'], '1.6.16', true );
+		wp_enqueue_script( 'mb-conditional-logic', $url . 'conditional-logic.js', ['underscore', 'rwmb'], filemtime( __DIR__ . '/conditional-logic.js' ), true );
 		wp_localize_script( 'mb-conditional-logic', 'conditions', $this->get_outside_conditions() );
 	}
 

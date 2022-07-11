@@ -466,35 +466,7 @@ if( !function_exists( 'be_generate_css_from_atts' ) ) {
 	}
 }
 
-if(!function_exists( 'be_theme_name' )){
-	function be_theme_name($check_be_theme=null){
-		$check_theme = wp_get_theme();
-		$theme_name = trim($check_theme->get(('Name' )));
-		$theme_name = strtolower($theme_name);
-		$child_theme_name = trim($check_theme->get(('Template' )));
-		$child_theme_name = strtolower($child_theme_name);
-		$be_theme = empty($theme_name)?$child_theme_name:$theme_name;
-		if($theme_name == 'exponent' || $child_theme_name == 'exponent'){
-			$be_theme = 'exponent';
-		}
-		if($theme_name == 'spyro' || $child_theme_name == 'spyro'){
-			$be_theme = 'spyro';
-		}
-		if($theme_name == 'oshin' || $child_theme_name == 'oshin'){
-			$be_theme = 'oshin';
-		}
 
-		if(!empty($check_be_theme)){
-			if($check_be_theme==$be_theme){
-				return true;
-			}else{
-				return false;
-			}
-		}else{
-			return $be_theme;
-		}
-	}
-}
 if( !function_exists( 'is_tatsu_not_edit_mode' ) ) {
 	function is_tatsu_not_edit_mode(){//return edit?false:true;
 		$post_edit_url = array('action=edit','id=','?tatsu','/moduleEditor/');
@@ -665,7 +637,7 @@ if( !function_exists( 'be_get_video_details' ) ){
 				} else {
 					return array(
 						'source' => 'vimeo',
-						'thumb_url' => 'https://placehold.it/1280x720',
+						'thumb_url' => 'https://via.placeholder.com/1280x720',
 						'video_id' => $vimeo_id
 					);
 				}
@@ -673,7 +645,7 @@ if( !function_exists( 'be_get_video_details' ) ){
 			}else{
 				return array(
 					'source' => 'vimeo',
-					'thumb_url' => 'https://placehold.it/1280x720',
+					'thumb_url' => 'https://via.placeholder.com/1280x720',
 					'video_id' => ''
 				);
 			}

@@ -97,6 +97,7 @@ class Tatsu_Forms_Process{
 				foreach ($_POST as $field_name => $field_value) {
 					if(!empty($field_name) && in_array(trim($field_name),$form_fields_name)){
 						$field_name = sanitize_text_field($field_name);
+						$field_value = is_array($field_value)?implode(',',$field_value):$field_value;
 						$field_value = sanitize_textarea_field($field_value);
 						$form_data[] = $wpdb->prepare("(%d,%s,%s)",$submit_id,$field_name,$field_value);
                         $field_data[$field_name]=$field_value;
@@ -109,8 +110,12 @@ class Tatsu_Forms_Process{
 				$wpdb->query($query_data);
 				
 				//Send Email
-				if(!empty($_POST['action_after_submit']) && 'email'==trim($_POST['action_after_submit']) && !empty($form_settings) && !empty($form_settings['action_after_submit'])){
+				if(!empty($_POST['action_after_submit']) && !empty($form_settings) && !empty($form_settings['action_after_submit'])){
+					if('email'==trim($_POST['action_after_submit'])){
                     $this->process_form_email($tatsu_form_id,$form_settings,$field_data);
+					}else if('mailchimp'==trim($_POST['action_after_submit']) && function_exists('spyro_mailchimp_subscription')){
+						spyro_mailchimp_subscription();
+					}
 				}
 
 				$result['status']="success";
@@ -124,9 +129,7 @@ class Tatsu_Forms_Process{
 			$result['status']="error";
 			$result['data']=__('No input found','tatsu');
 		}
-		header('Content-type: application/json');
-		echo json_encode($result);
-		die();
+		wp_send_json($result);
 	}
 	
 	//Check Input reCAPTCHA response and tell if invalid
@@ -245,10 +248,10 @@ class Tatsu_Forms_Process{
         $patterns = array();
         $replacements = array();
         foreach ($tags_array as $tag => $tag_value) {
-            $patterns[] = "/$tag/";
+            $patterns[] = $tag;
             $replacements[] = $tag_value;
         }
-        $content = preg_replace($patterns, $replacements, $content);
+        $content = str_replace($patterns, $replacements, $content);
         return wpautop($content,true);
     }
 

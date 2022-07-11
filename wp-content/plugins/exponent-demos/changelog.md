@@ -1,3 +1,8 @@
+v1.3.2 (9 February 2022)
+======
+* Fixed : Replace contact form 7 with WPForms
+* Fixed : Demo import speed
+
 v1.3.1
 ======
 * Fixed : Plugin update checker url
