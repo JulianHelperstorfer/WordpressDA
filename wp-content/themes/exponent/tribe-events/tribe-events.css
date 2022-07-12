@@ -1,0 +1,9 @@
+.tribe-events-calendar-month__week .tribe-events-calendar-month__day:nth-child(6) .tribe-events-calendar-month__events:after,
+.tribe-events-calendar-month__week .tribe-events-calendar-month__day:nth-child(7) .tribe-events-calendar-month__events:after {
+  content:"CLOSED";
+  font-size:14px;
+  margin:10px;
+  background-color:red;
+  padding:5px;
+  border-radius:10px;
+}
